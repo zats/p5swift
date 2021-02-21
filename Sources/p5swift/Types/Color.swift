@@ -59,6 +59,42 @@ public struct Color {
       self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
   }
+  
+  public func hsba() -> (hue: Float, saturation: Float, brightness: Float, alpha: Float) {
+    let val = max(red, green, blue)
+    let chroma = val - min(red, green, blue)
+
+    var hue: Float, sat: Float;
+    if chroma == 0 {
+      // Return early if grayscale.
+      hue = 0
+      sat = 0
+    } else {
+      sat = chroma / val;
+      if red == val {
+        // Magenta to yellow.
+        hue = (green - blue) / chroma
+      } else if green == val {
+        // Yellow to cyan.
+        hue = 2 + (blue - red) / chroma
+      } else if blue == val {
+        // Cyan to magenta.
+        hue = 4 + (red - green) / chroma
+      } else {
+        fatalError()
+      }
+      
+      if hue < 0 {
+        // Confine hue to the interval [0, 1).
+        hue += 6
+      } else if hue >= 6 {
+        hue -= 6
+      }
+    }
+
+    return (hue / 6, sat, val, alpha)
+
+  }
 }
 
 public extension Color {
@@ -93,4 +129,45 @@ public extension Color {
   static let green = Color(red: 0.051, green: 0.671, blue: 0.510, alpha: 1.000)
   static let purple = Color(red: 0.180, green: 0.153, blue: 0.635, alpha: 1.000)
   static let grey = Color(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.000)
+}
+
+import UIKit
+
+public extension Color {
+  var uiColor: UIColor {
+    UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
+  }
+}
+
+public extension Color {
+  func withRed(_ newRed: Float) -> Color {
+    Color(red: newRed, green: green, blue: blue, alpha: alpha)
+  }
+
+  func withGreen(_ newGreen: Float) -> Color {
+    Color(red: red, green: newGreen, blue: blue, alpha: alpha)
+  }
+
+  func withBlue(_ newBlue: Float) -> Color {
+    Color(red: red, green: green, blue: newBlue, alpha: alpha)
+  }
+
+  func withAlpha(_ newAlpha: Float) -> Color {
+    Color(red: red, green: green, blue: blue, alpha: newAlpha)
+  }
+  
+  func withHue(_ newHue: Float) -> Color {
+    let hsba = self.hsba()
+    return Color(hue: newHue, saturation: hsba.saturation, brightness: hsba.brightness, alpha: hsba.alpha)
+  }
+
+  func withSaturation(_ newSaturation: Float) -> Color {
+    let hsba = self.hsba()
+    return Color(hue: hsba.hue, saturation: newSaturation, brightness: hsba.brightness, alpha: hsba.alpha)
+  }
+
+  func withBrightness(_ newBrightness: Float) -> Color {
+    let hsba = self.hsba()
+    return Color(hue: hsba.hue, saturation: hsba.saturation, brightness: newBrightness, alpha: hsba.alpha)
+  }
 }

@@ -43,7 +43,19 @@ public extension Graphics {
 }
 
 public extension Graphics {
+  var width: Float {
+    size.width
+  }
+  
+  var height: Float {
+    size.height
+  }
+  
   func circle(x: Float, y: Float, radius: Float) {
     ellipse(Ellipse(x: x, y: y, width: radius * 2, height: radius * 2))
+  }
+
+  func circle(centerX x: Float, y: Float, radius: Float) {
+    ellipse(Ellipse(x: x - radius, y: y - radius, width: radius * 2, height: radius * 2))
   }
 }
