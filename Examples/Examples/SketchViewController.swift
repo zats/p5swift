@@ -18,10 +18,11 @@ class SketchViewController: UIViewController {
     self.view = sketch.view    
     self.navigationItem.titleView = titleView(for: sketchType.title, author: sketchType.author)
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .done, target: self, action: #selector(onInfoButton(_:)))
+    self.edgesForExtendedLayout = [.bottom]
   }
   
   @objc private func onInfoButton(_ sender: UIBarButtonItem) {
-    UIApplication.shared.open(sketchType.url, options: [:], completionHandler: nil)
+    UIApplication.shared.open(sketchType.url ?? sketchType.authorUrl, options: [:], completionHandler: nil)
   }
   
   private func titleView(for title: String, author: String) -> UIView {

@@ -7,7 +7,7 @@ class StrangeVibrationsSketch: Sketch, SketchSample {
   static let author = "Roni Kaufman"
   static let authorUrl = URL(string: "https://twitter.com/kaufmanroni")!
   static let title = "Strange Vibration"
-  static let url = URL(string: "https://openprocessing.org/sketch/1051702/")!
+  static let url = URL(string: "https://openprocessing.org/sketch/1051702/")
 
   private var points: [(r: Float, theta: Float)] = []
   

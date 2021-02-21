@@ -7,7 +7,7 @@ class ContactSketch: Sketch, SketchSample {
   static let title = "Contact"
   static let author = "Roni Kaufman"
   static let authorUrl = URL(string: "https://twitter.com/kaufmanroni")!
-  static let url = URL(string: "https://openprocessing.org/sketch/917163/")!
+  static let url = URL(string: "https://openprocessing.org/sketch/917163/")
 
   private let step = random(min: 0.005, max: 0.01)
   private let kMax = random(min: 1, max: 2)

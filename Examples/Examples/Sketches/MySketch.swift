@@ -6,8 +6,8 @@ import p5swift
 class MySketch: Sketch, SketchSample {
   static let title = "My Sketch"
   static let author = "okazz"
-  static let url = URL(string: "https://openprocessing.org/sketch/1085350/")!
   static let authorUrl = URL(string: "https://twitter.com/okazz_")!
+  static let url = URL(string: "https://openprocessing.org/sketch/1085350/")
 
   var colors: [Color] = [.red, .orange, .yellow, .grey, .purple, .white, .grey].shuffled()
   lazy var backgroundColor = colors.removeFirst()
