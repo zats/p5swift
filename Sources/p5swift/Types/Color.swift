@@ -1,6 +1,6 @@
 import CoreGraphics
 
-public struct Color {  
+public struct Color: Equatable {  
   public var red: Float
   public var green: Float
   public var blue: Float
@@ -131,14 +131,6 @@ public extension Color {
   static let grey = Color(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.000)
 }
 
-import UIKit
-
-public extension Color {
-  var uiColor: UIColor {
-    UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
-  }
-}
-
 public extension Color {
   func withRed(_ newRed: Float) -> Color {
     Color(red: newRed, green: green, blue: blue, alpha: alpha)
@@ -169,5 +161,96 @@ public extension Color {
   func withBrightness(_ newBrightness: Float) -> Color {
     let hsba = self.hsba()
     return Color(hue: hsba.hue, saturation: hsba.saturation, brightness: newBrightness, alpha: hsba.alpha)
+  }
+}
+
+public extension Color {
+  
+  // Match colors in format #XXX, e.g. #416.
+  private static let hex3 = try! NSRegularExpression(pattern: "^#?([a-f0-9])([a-f0-9])([a-f0-9])$", options: [.caseInsensitive])
+  // Match colors in format #XXXX, e.g. #5123.
+  private static let hex4 = try! NSRegularExpression(pattern: "^#?([a-f0-9])([a-f0-9])([a-f0-9])([a-f0-9])$", options: [.caseInsensitive])
+  // Match colors in format #XXXXXX, e.g. #b4d455.
+  private static let hex6 = try! NSRegularExpression(pattern: "^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$", options: [.caseInsensitive])
+  // Match colors in format #XXXXXXXX, e.g. #b4d45535.
+  private static let hex8 = try! NSRegularExpression(pattern: "^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$", options: [.caseInsensitive])
+  
+  internal static let hexFallbackColor = Color.white
+
+  
+  init(hex: String) {
+    let range = NSRange(location: 0, length: hex.utf16.count)
+    if let match = Color.hex3.firstMatch(in: hex, options: [.anchored], range: range),
+       match.numberOfRanges == 4,
+       let range1 = Range(match.range(at: 1), in: hex),
+       let range2 = Range(match.range(at: 2), in: hex),
+       let range3 = Range(match.range(at: 3), in: hex)
+    {
+      self.init(hexRed: "\(hex[range1])\(hex[range1])",
+                green: "\(hex[range2])\(hex[range2])",
+                blue: "\(hex[range3])\(hex[range3])",
+                alpha: "FF")
+    } else if let match = Color.hex4.firstMatch(in: hex, options: [.anchored], range: range),
+              match.numberOfRanges == 5,
+              let range1 = Range(match.range(at: 1), in: hex),
+              let range2 = Range(match.range(at: 2), in: hex),
+              let range3 = Range(match.range(at: 3), in: hex),
+              let range4 = Range(match.range(at: 4), in: hex)
+    {
+      self.init(hexRed: "\(hex[range1])\(hex[range1])",
+                green: "\(hex[range2])\(hex[range2])",
+                blue: "\(hex[range3])\(hex[range3])",
+                alpha: "\(hex[range4])\(hex[range4])")
+    } else if let match = Color.hex6.firstMatch(in: hex, options: [.anchored], range: range),
+              match.numberOfRanges == 4,
+              let range1 = Range(match.range(at: 1), in: hex),
+              let range2 = Range(match.range(at: 2), in: hex),
+              let range3 = Range(match.range(at: 3), in: hex)
+    {
+      self.init(hexRed: String(hex[range1]),
+                green: String(hex[range2]),
+                blue: String(hex[range3]),
+                alpha: "FF")
+      
+    } else if let match = Color.hex8.firstMatch(in: hex, options: [.anchored], range: range),
+              match.numberOfRanges == 5,
+              let range1 = Range(match.range(at: 1), in: hex),
+              let range2 = Range(match.range(at: 2), in: hex),
+              let range3 = Range(match.range(at: 3), in: hex),
+              let range4 = Range(match.range(at: 4), in: hex)
+    {
+      self.init(hexRed: String(hex[range1]),
+                green: String(hex[range2]),
+                blue: String(hex[range3]),
+                alpha: String(hex[range4]))
+    } else {
+      debugPrint("Invalid hex color \"\(hex)\"")
+      self = Color.hexFallbackColor
+    }
+  }
+
+  private init(hexRed red: String, green: String, blue: String, alpha: String) {
+    if let red = UInt8(red, radix: 16),
+       let green = UInt8(green, radix: 16),
+       let blue = UInt8(blue, radix: 16),
+       let alpha = UInt8(alpha, radix: 16)
+    {
+      self.init(red: Float(red)/255,
+                green: Float(green)/255,
+                blue: Float(blue)/255,
+                alpha: Float(alpha)/255)
+    } else {
+      debugPrint("Invalid hex color \"\(red)\(green)\(blue)\(alpha)\"")
+      self = Color.hexFallbackColor
+    }
+  }
+}
+
+
+import UIKit
+
+public extension Color {
+  var uiColor: UIColor {
+    UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
   }
 }

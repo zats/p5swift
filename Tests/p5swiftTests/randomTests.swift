@@ -3,7 +3,7 @@
 import XCTest
 @testable import p5swift
 
-final class randomTests: XCTestCase {
+final class RandomTests: XCTestCase {
   func testRandom() {
     randomSeed(0xC0FE)
     let r = random(min: 0, max: 1)
@@ -14,13 +14,13 @@ final class randomTests: XCTestCase {
     noiseSeed(0xC0FE)
     randomSeed(0xC0FE)
     let n = noise(x: 0.5)
-    XCTAssert(n == -0.286022455)
+    XCTAssert(n == -0.53550142)
   }
   
   func test2DNoise() {
     noiseSeed(0xC0FE)
     let n = noise(x: 0.5, y: 0.5)
-    XCTAssert(n == 0.649006724)
+    XCTAssert(n == -0.374651164)
   }
   
   func testGaussian() {
