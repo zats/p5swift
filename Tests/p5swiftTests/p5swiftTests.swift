@@ -27,7 +27,7 @@ class ContactSketch: Sketch {
   }
   
   override func draw() {
-    background(Color(grey: 0.95))
+    background(Color(grey: 0.3))
     
     for i in 0..<n {
       var alpha = 1 - Float(i) / Float(n)
