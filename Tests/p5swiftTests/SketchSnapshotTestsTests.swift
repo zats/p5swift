@@ -66,7 +66,7 @@ class ContactSketch: Sketch {
 
 
 
-final class p5swiftTests: XCTestCase {
+final class SketchSnapshotTestsTests: XCTestCase {
     func testExample() {
       let g = CGGraphics(size: testSize)
       g.background(.green)
