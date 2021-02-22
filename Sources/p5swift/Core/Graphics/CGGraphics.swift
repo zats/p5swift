@@ -23,8 +23,7 @@ class CGGraphics: Graphics, InternalGraphics {
   
   var operations: [GraphicsOperations] = []
   
-  private var curveTightness: Float = 0
-  
+
   var rendererView: RendererView {
     cgRendererView
   }
@@ -38,70 +37,63 @@ class CGGraphics: Graphics, InternalGraphics {
   }
     
   private func draw(_ arc: Arc, in context: CGContext) {
-    let center = CGPoint(x: CGFloat(arc.x), y: CGFloat(arc.y))
+    let path = arc.cgPath
+    configuration.lastPath = path
     if configuration.fill.alpha > 0 {
       configuration.applyFill(to: context)
-      context.addArc(center: center,
-                     radius: CGFloat(arc.radius),
-                     startAngle: CGFloat(arc.start),
-                     endAngle: CGFloat(arc.stop),
-                     clockwise: true)
+      context.addPath(path)
       context.fillPath()
     }
     if configuration.stroke.alpha > 0 {
       configuration.applyStroke(to: context)
-      context.addArc(center: center,
-                     radius: CGFloat(arc.radius),
-                     startAngle: CGFloat(arc.start), endAngle: CGFloat(arc.stop),
-                     clockwise: true)
+      context.addPath(path)
       context.strokePath()
     }
     
   }
-  private enum PathElement {
-    case vertex(Point)
-    case curveVertex(Point)
-    
-    var point: Point {
-      switch self {
-      case let .vertex(point):
-        return point
-      case let .curveVertex(point):
-        return point
-      }
-    }
-  }
-  private var ongoingPath: [PathElement] = []
   
   func internalDraw() {
     let cgContext = cgRendererView.cgContext!
     for operation in operations {
       switch operation {
+      case .clip:
+        if let lastPath = configuration.lastPath {
+          cgContext.addPath(lastPath)
+          cgContext.clip()
+          configuration.lastPath = nil
+        } else {
+          debugPrint("No path to clip")
+        }
+      case .endClip:
+        cgContext.resetClip()
+      
+      case let .line(line):
+        configuration.strokeOrFill(context: cgContext, path: line.cgPath)
       case let .rectangle(rect):
-        configuration.strokeOrFill(context: cgContext) {
-          cgContext.addRect(rect.cgRect)
-        }
+        configuration.strokeOrFill(context: cgContext, path: rect.cgPath)
       case let .ellipse(ellipse):
-        configuration.strokeOrFill(context: cgContext) {
-          cgContext.addEllipse(in: ellipse.cgRect)
-        }
+        configuration.strokeOrFill(context: cgContext, path: ellipse.cgPath)
       case let .arc(arc):
         draw(arc, in: cgContext)
       case let .point(point):
-        configuration.strokeOrFill(context: cgContext) {
-          cgContext.addEllipse(in: CGRect(x: CGFloat(point.x), y: CGFloat(point.y), width: 0, height: 0))
-        }
+        let path = CGMutablePath()
+        path.addEllipse(in: CGRect(x: CGFloat(point.x), y: CGFloat(point.y), width: 0, height: 0))
+        configuration.strokeOrFill(context: cgContext, path: path)
         
       case .beginShape:
-        assert(ongoingPath.isEmpty)
-        ongoingPath = []
+        if !configuration.ongoingPath.isEmpty {
+          configuration.ongoingPath = OngoingPath(curveTightness: configuration.curveTightness)
+          debugPrint("beginShape called while another path was started")
+        }
       case let .vertex(point):
-        ongoingPath.append(.vertex(point))
+        configuration.ongoingPath.addVertex(point)
       case let .curveVertex(point):
-        ongoingPath.append(.curveVertex(point))
+        configuration.ongoingPath.addCurveVertex(point)
       case let .endShape(mode):
-        drawPath(ongoingPath, in: cgContext, shapeMode: mode)
-        ongoingPath = []
+        configuration.ongoingPath.endPath(mode)
+        configuration.strokeOrFill(context: cgContext, path: configuration.ongoingPath.cgPath)
+        configuration.ongoingPath = OngoingPath(curveTightness: configuration.curveTightness)
+
       case let .blendMode(mode):
         cgContext.setBlendMode(mode.cgBlendMode)
       case let .fill(color):
@@ -140,52 +132,20 @@ class CGGraphics: Graphics, InternalGraphics {
     frameCount += 1
   }
   
-  private func drawPath(_ path: [PathElement], in context: CGContext, shapeMode: ShapeMode) {
-    if path.isEmpty {
-      return
-    }
-    var isCurve = true
-    for (i, _) in path.dropLast().enumerated() {
-      switch (path[i], path[i + 1]) {
-      case (.vertex, .vertex):
-        isCurve = false
-      case (.curveVertex, .curveVertex):
-        isCurve = true
-      default:
-        assertionFailure("Mix of curve vertices and regular vertices")
-        return
-      }
-    }
-    configuration.strokeOrFill(context: context) {
-      if isCurve && path.count > 3 {
-        let s = 1 - curveTightness
-        context.beginPath()
-        context.move(to: path[0].point.cgPoint)
-        for i in 1..<path.count - 2 {
-          let p0 = path[i].point
-          let cp1 = Point(x: p0.x + (s * path[i + 1].point.x - s * path[i - 1].point.x) / 6,
-                          y: p0.y + (s * path[i + 1].point.y - s * path[i - 1].point.y) / 6)
-          let cp2 = Point(x: path[i + 1].point.x + (s * path[i].point.x - s * path[i + 2].point.x) / 6,
-                          y: path[i + 1].point.y + (s * path[i].point.y - s * path[i + 2].point.y) / 6)
-          let p = Point(x: path[i + 1].point.x,
-                        y: path[i + 1].point.y);
-          context.addCurve(to: p.cgPoint,
-                           control1: cp1.cgPoint,
-                           control2: cp2.cgPoint)
-          shapeMode.finalizeShape(in: context)
-        }
-      } else {
-        context.beginPath()
-        context.addLines(between: path.map { $0.point.cgPoint })
-        shapeMode.finalizeShape(in: context)
-      }
-      // TODO: add bezier vertex handling
-    }
-
-  }
-  
   func blendMode(_ mode: BlendMode) {
     operations.append(.blendMode(mode))
+  }
+  
+  func clip() {
+    operations.append(.clip)
+  }
+  
+  func endClip() {
+    operations.append(.endClip)
+  }
+  
+  func line(_ line: Line) {
+    operations.append(.line(line))
   }
   
   func rectangle(_ rect: Rectangle) {

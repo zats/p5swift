@@ -6,11 +6,30 @@ public struct Rectangle {
   public var width: Float
   public var height: Float
   
-  public init(x: Float, y: Float, width: Float, height: Float) {
+  public var cornerWidth: Float
+  public var cornerHeight: Float
+  
+  public var hasRoundedCorners: Bool {
+    cornerWidth > 0 || cornerHeight > 0
+  }
+
+  public init(x: Float, y: Float, width: Float, height: Float, cornerRadius: Float = 0) {
+    self.init(x: x, y: y, width: width, height: height, cornerWidth: cornerRadius, cornerHeight: cornerRadius)
+  }
+  
+  public init(x: Float,
+              y: Float,
+              width: Float,
+              height: Float,
+              cornerWidth: Float,
+              cornerHeight: Float) {
     self.x = x
     self.y = y
     self.width = width
     self.height = height
+    self.cornerWidth = cornerWidth
+    self.cornerHeight = cornerHeight
+
   }
 }
 

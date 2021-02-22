@@ -57,6 +57,18 @@ open class Sketch: Graphics {
     graphics.internalDraw()
   }
   
+  public func clip() {
+    graphics.clip()
+  }
+  
+  public func endClip() {
+    graphics.endClip()
+  }
+  
+  public func line(_ line: Line) {
+    graphics.line(line)
+  }
+  
   public func rectangle(_ rectangle: Rectangle) {
     graphics.rectangle(rectangle)
   }

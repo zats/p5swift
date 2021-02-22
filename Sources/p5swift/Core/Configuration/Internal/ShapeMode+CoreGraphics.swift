@@ -3,13 +3,13 @@
 import CoreGraphics
 
 extension ShapeMode {
-  func finalizeShape(in context: CGContext) {
+  func finalizeShape(in path: CGMutablePath) {
     switch self {
     case .open:
       // no-op
       break
     case .close:
-      context.closePath()
+      path.closeSubpath()
     }
   }
 }

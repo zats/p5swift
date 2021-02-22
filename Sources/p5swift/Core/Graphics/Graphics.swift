@@ -5,6 +5,7 @@ public protocol Graphics {
   var frameCount: Int { get }
   var view: UIView { get }
 
+  func line(_ line: Line)
   func rectangle(_ rectangle: Rectangle)
   func ellipse(_ ellipse: Ellipse)
   func arc(_ arc: Arc)
@@ -14,6 +15,9 @@ public protocol Graphics {
   func vertex(_ point: Point)
   func curveVertex(_ point: Point)
   func endShape(_ mode: ShapeMode)
+  
+  func clip()
+  func endClip()
   
   func blendMode(_ mode: BlendMode)
   func background(_ color: Color)

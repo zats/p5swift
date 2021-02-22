@@ -1,10 +1,14 @@
 import Foundation
 
 enum GraphicsOperations {
+  case line(Line)
   case rectangle(Rectangle)
   case ellipse(Ellipse)
   case arc(Arc)
   case point(Point)
+  
+  case clip
+  case endClip
   
   case beginShape
   case vertex(Point)
