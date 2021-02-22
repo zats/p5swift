@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C25471F25E3029100319C21 /* TilesSketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C25471E25E3029100319C21 /* TilesSketch.swift */; };
 		5C3495C725E1EAD1004ED4CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495C625E1EAD1004ED4CE /* AppDelegate.swift */; };
 		5C3495C925E1EAD1004ED4CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495C825E1EAD1004ED4CE /* SceneDelegate.swift */; };
 		5C3495CE25E1EAD1004ED4CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C3495CC25E1EAD1004ED4CE /* Main.storyboard */; };
@@ -21,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5C25472525E3029100319C21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = "SnapshotTesting::SnapshotTesting::Product";
+			remoteInfo = SnapshotTesting;
+		};
 		5C3495FE25E1F773004ED4CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */;
@@ -45,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C25471E25E3029100319C21 /* TilesSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesSketch.swift; sourceTree = "<group>"; };
 		5C3495C325E1EAD1004ED4CE /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C3495C625E1EAD1004ED4CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C3495C825E1EAD1004ED4CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +121,7 @@
 				5C3495E825E1F5E9004ED4CE /* StrangeVibrationsSketch.swift */,
 				5C3495EB25E1F604004ED4CE /* ContactSketch.swift */,
 				5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */,
+				5C25471E25E3029100319C21 /* TilesSketch.swift */,
 			);
 			path = Sketches;
 			sourceTree = "<group>";
@@ -119,6 +129,7 @@
 		5C3495F825E1F772004ED4CE /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				5C25472625E3029100319C21 /* SnapshotTesting.framework */,
 				5C3495FF25E1F773004ED4CE /* p5swift.framework */,
 				5C34960125E1F773004ED4CE /* p5swiftTests.xctest */,
 			);
@@ -189,6 +200,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		5C25472625E3029100319C21 /* SnapshotTesting.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SnapshotTesting.framework;
+			remoteRef = 5C25472525E3029100319C21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5C3495FF25E1F773004ED4CE /* p5swift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -223,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C25471F25E3029100319C21 /* TilesSketch.swift in Sources */,
 				5C3495E925E1F5E9004ED4CE /* StrangeVibrationsSketch.swift in Sources */,
 				5C3495EC25E1F604004ED4CE /* ContactSketch.swift in Sources */,
 				5C3495E625E1F5B4004ED4CE /* MySketch.swift in Sources */,

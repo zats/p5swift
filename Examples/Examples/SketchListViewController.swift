@@ -14,7 +14,8 @@ class SketchListViewController: UITableViewController {
     sketches = [
       MySketch.self,
       ContactSketch.self,
-      StrangeVibrationsSketch.self
+      StrangeVibrationsSketch.self,
+      TilesSketch.self,
     ]
   }
   
