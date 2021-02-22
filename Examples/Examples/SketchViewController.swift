@@ -29,12 +29,12 @@ class SketchViewController: UIViewController {
     let titleLabel = UILabel()
     titleLabel.text = title
     titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    titleLabel.textColor = .darkText
+    titleLabel.textColor = .label
     titleLabel.sizeToFit()
     let authorLabel = UILabel()
     authorLabel.text = author
     authorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-    authorLabel.textColor = .placeholderText
+    authorLabel.textColor = .secondaryLabel
     authorLabel.sizeToFit()
     let stackView = UIStackView(arrangedSubviews: [
       titleLabel,

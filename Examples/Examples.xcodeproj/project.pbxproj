@@ -19,6 +19,8 @@
 		5C3495F025E1F62C004ED4CE /* SketchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495EE25E1F62C004ED4CE /* SketchViewController.swift */; };
 		5C3495F125E1F62C004ED4CE /* SketchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495EF25E1F62C004ED4CE /* SketchListViewController.swift */; };
 		5C3495F425E1F63B004ED4CE /* SketchSampleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */; };
+		5C546F9F25E34F9F00880841 /* p5swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; };
+		5C546FA025E34F9F00880841 /* p5swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5C546FA125E34F9F00880841 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5C546FA025E34F9F00880841 /* p5swift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5C25471E25E3029100319C21 /* TilesSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesSketch.swift; sourceTree = "<group>"; };
 		5C3495C325E1EAD1004ED4CE /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C546F9F25E34F9F00880841 /* p5swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +104,7 @@
 				5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */,
 				5C3495C525E1EAD1004ED4CE /* Examples */,
 				5C3495C425E1EAD1004ED4CE /* Products */,
+				5C546F9A25E34F5900880841 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +154,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5C546F9A25E34F5900880841 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,6 +171,7 @@
 				5C3495BF25E1EAD1004ED4CE /* Sources */,
 				5C3495C025E1EAD1004ED4CE /* Frameworks */,
 				5C3495C125E1EAD1004ED4CE /* Resources */,
+				5C546FA125E34F9F00880841 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
