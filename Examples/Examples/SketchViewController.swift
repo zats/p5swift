@@ -16,24 +16,36 @@ class SketchViewController: UIViewController {
   
   override func loadView() {
     self.view = sketch.view    
-    self.navigationItem.titleView = titleView(for: sketchType.title, author: sketchType.author)
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .done, target: self, action: #selector(onInfoButton(_:)))
+    self.navigationItem.titleView = titleView(for: sketchType)
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
+                                                             style: .done,
+                                                             target: self,
+                                                             action: #selector(onAccessoryButton(_:)))
   }
   
-  @objc private func onInfoButton(_ sender: UIBarButtonItem) {
-    UIApplication.shared.open(sketchType.url ?? sketchType.authorUrl, options: [:], completionHandler: nil)
+  @objc private func onAccessoryButton(_ sender: UIBarButtonItem) {
+    let image = UIGraphicsImageRenderer(bounds: view.bounds).image { context in
+      view.layer.draw(in: context.cgContext)
+    }
+    let activityViewController = UIActivityViewController(activityItems: [ image ], applicationActivities: nil)
+    activityViewController.popoverPresentationController?.sourceView = self.view
+    self.present(activityViewController, animated: true, completion: nil)
   }
   
-  private func titleView(for title: String, author: String) -> UIView {
-    let titleLabel = UILabel()
-    titleLabel.text = title
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    titleLabel.textColor = .label
+  private func titleView(for sketchType: SketchSample.Type) -> UIView {
+    let titleLabel = UIButton(primaryAction: UIAction(handler: { _ in
+      UIApplication.shared.open(sketchType.url ?? sketchType.authorUrl, options: [:], completionHandler: nil)
+    }))
+    titleLabel.setTitle(sketchType.title, for: .normal)
+    titleLabel.titleLabel!.font = UIFont.preferredFont(forTextStyle: .body)
+    titleLabel.setTitleColor(.label, for: .normal)
     titleLabel.sizeToFit()
-    let authorLabel = UILabel()
-    authorLabel.text = author
-    authorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-    authorLabel.textColor = .secondaryLabel
+    let authorLabel = UIButton(primaryAction: UIAction(handler: { _ in
+      UIApplication.shared.open(sketchType.authorUrl, options: [:], completionHandler: nil)
+    }))
+    authorLabel.setTitle(sketchType.author, for: .normal)
+    authorLabel.titleLabel!.font = UIFont.preferredFont(forTextStyle: .footnote)
+    authorLabel.setTitleColor(.secondaryLabel, for: .normal)
     authorLabel.sizeToFit()
     let stackView = UIStackView(arrangedSubviews: [
       titleLabel,
