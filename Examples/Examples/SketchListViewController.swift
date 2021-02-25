@@ -7,6 +7,8 @@ class SketchListViewController: UITableViewController {
   private static let cellIdentifier = "cell"
   
   private var sketches: [SketchSample.Type] = []
+  
+  lazy var sketchIndex = Int(ProcessInfo.processInfo.environment["OPEN_SKETCH_INDEX", default: ""])
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -17,6 +19,24 @@ class SketchListViewController: UITableViewController {
       StrangeVibrationsSketch.self,
       TilesSketch.self,
     ]
+    
+    autoNavigateToSketch()
+  }
+  
+  private func autoNavigateToSketch() {
+    if let sketchIndex = sketchIndex {
+      var index: Int
+      if sketchIndex == -1 {
+        // open last one
+        index = sketches.count - 1
+      } else if sketchIndex >= 0 && sketchIndex < sketches.count {
+        index = sketchIndex
+      } else {
+        return
+      }
+      navigateToSketch(at: index)
+      self.sketchIndex = nil
+    }
   }
   
   override func viewDidLoad() {
@@ -36,7 +56,11 @@ class SketchListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let sketch = sketches[indexPath.row]    
+    navigateToSketch(at: indexPath.row)
+  }
+  
+  private func navigateToSketch(at index: Int) {
+    let sketch = sketches[index]
     navigationController!.pushViewController(SketchViewController(sketch: sketch), animated: true)
   }
 }
