@@ -55,8 +55,16 @@ public extension Graphics {
     size.height
   }
   
+  func circle(origin: Point, radius: Float) {
+    circle(x: origin.x, y: origin.y, radius: radius)
+  }
+  
   func circle(x: Float, y: Float, radius: Float) {
     ellipse(Ellipse(x: x, y: y, width: radius * 2, height: radius * 2))
+  }
+  
+  func circle(center: Point, radius: Float) {
+    circle(centerX: center.x, y: center.y, radius: radius)
   }
 
   func circle(centerX x: Float, y: Float, radius: Float) {
