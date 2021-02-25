@@ -56,3 +56,65 @@ public extension Rectangle {
     Size(width: width, height: height)
   }
 }
+
+public extension Rectangle {
+  var topLeft: Point {
+    Point(x: x, y: y)
+  }
+  
+  var topRight: Point {
+    Point(x: maxX, y: y)
+  }
+  
+  var bottomRight: Point {
+    Point(x: maxX, y: maxY)
+  }
+
+  var bottomLeft: Point {
+    Point(x: x, y: maxY)
+  }
+  
+  var maxY: Float {
+    y + height
+  }
+  
+  var maxX: Float {
+    x + width
+  }
+}
+
+public extension Rectangle {
+  func insetBy(dx: Float, dy: Float) -> Rectangle {
+    return Rectangle(x: x + dx,
+                     y: y + dy,
+                     width: width - dx * 2,
+                     height: height - dy * 2)
+  }
+}
+
+public extension Rectangle {
+  enum IterationOrder {
+    case xFirst, yFirst
+  }
+  
+  func iterate(by step: Float, order: IterationOrder = .yFirst, iterator: (Point) -> Void) {
+    iterate(by: Point(x: step, y: step), order: order, iterator: iterator)
+  }
+
+  func iterate(by step: Point, order: IterationOrder = .yFirst, iterator: (Point) -> Void) {
+    switch order {
+    case .xFirst:
+      for x in stride(from: self.x, through: maxX, by: step.x) {
+        for y in stride(from: self.y, through: maxY, by: step.y) {
+          iterator(Point(x: x, y: y))
+        }
+      }
+    case .yFirst:
+      for y in stride(from: self.y, through: maxY, by: step.y) {
+        for x in stride(from: self.x, through: maxX, by: step.x) {
+          iterator(Point(x: x, y: y))
+        }
+      }
+    }
+  }
+}
