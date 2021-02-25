@@ -45,7 +45,7 @@
 			remoteGlobalIDString = "p5swift::p5swiftTests::Product";
 			remoteInfo = p5swiftTests;
 		};
-		5C34960925E1F778004ED4CE /* PBXContainerItemProxy */ = {
+		5CD75D7825E725C8000E9B42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */;
 			proxyType = 1;
@@ -176,7 +176,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5C34960A25E1F778004ED4CE /* PBXTargetDependency */,
+				5CD75D7925E725C8000E9B42 /* PBXTargetDependency */,
 			);
 			name = Examples;
 			packageProductDependencies = (
@@ -282,10 +282,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5C34960A25E1F778004ED4CE /* PBXTargetDependency */ = {
+		5CD75D7925E725C8000E9B42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = p5swift;
-			targetProxy = 5C34960925E1F778004ED4CE /* PBXContainerItemProxy */;
+			targetProxy = 5CD75D7825E725C8000E9B42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
