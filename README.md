@@ -5,3 +5,12 @@ Creative coding framework
 Port of [Processing](http://processing.org) / [p5js](http://p5js.org) to [Swift](https://developer.apple.com/swift/)
 
 ![](screen.gif)
+
+## Usage
+
+```
+git clone https://github.com/zats/p5swift.git
+cd p5swift
+swift package generate-xcodeproj
+open Examples/Examples.xcodeproj
+```
