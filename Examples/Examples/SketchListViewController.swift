@@ -18,6 +18,7 @@ class SketchListViewController: UITableViewController {
       ContactSketch.self,
       StrangeVibrationsSketch.self,
       TilesSketch.self,
+      PleasingTraiangleSketch.self
     ]
     
     autoNavigateToSketch()

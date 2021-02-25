@@ -21,6 +21,7 @@
 		5C3495F425E1F63B004ED4CE /* SketchSampleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */; };
 		5C546F9F25E34F9F00880841 /* p5swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; };
 		5C546FA025E34F9F00880841 /* p5swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5CD75D7B25E72869000E9B42 /* PleasingTriangleSketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		5C3495EF25E1F62C004ED4CE /* SketchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchListViewController.swift; sourceTree = "<group>"; };
 		5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchSampleProtocol.swift; sourceTree = "<group>"; };
 		5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = p5swift.xcodeproj; path = ../p5swift.xcodeproj; sourceTree = "<group>"; };
+		5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleasingTriangleSketch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				5C3495EB25E1F604004ED4CE /* ContactSketch.swift */,
 				5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */,
 				5C25471E25E3029100319C21 /* TilesSketch.swift */,
+				5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */,
 			);
 			path = Sketches;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				5C3495E925E1F5E9004ED4CE /* StrangeVibrationsSketch.swift in Sources */,
 				5C3495EC25E1F604004ED4CE /* ContactSketch.swift in Sources */,
 				5C3495E625E1F5B4004ED4CE /* MySketch.swift in Sources */,
+				5CD75D7B25E72869000E9B42 /* PleasingTriangleSketch.swift in Sources */,
 				5C3495F425E1F63B004ED4CE /* SketchSampleProtocol.swift in Sources */,
 				5C3495C725E1EAD1004ED4CE /* AppDelegate.swift in Sources */,
 				5C3495F125E1F62C004ED4CE /* SketchListViewController.swift in Sources */,
