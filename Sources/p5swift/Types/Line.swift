@@ -11,3 +11,9 @@ public struct Line {
     self.b = b
   }
 }
+
+public extension Line {
+  var length: Float {
+    a.distance(to: b)
+  }
+}
