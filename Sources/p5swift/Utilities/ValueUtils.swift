@@ -30,3 +30,13 @@ public func map(value: Float, from: Range<Float>, to: Range<Float>, withinBounds
 public func constrain(value: Float, in range: Range<Float>) -> Float {
   return Swift.max(Swift.min(value, range.upperBound), range.lowerBound)
 }
+
+public func lerp(start: Point, stop: Point, amount: Float) -> Point {
+  Point(x: lerp(start: start.x, stop: stop.x, amount: amount),
+        y: lerp(start: start.y, stop: stop.y, amount: amount),
+        z: lerp(start: start.z, stop: stop.z, amount: amount))
+}
+
+public func lerp(start: Float, stop: Float, amount: Float) -> Float {
+  (stop - start) * amount + start
+}
