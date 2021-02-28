@@ -13,6 +13,11 @@ public struct Point {
 }
 
 public extension Point {
+  func normalize() -> Point {
+    let magnitude = magnitude()
+    return Point(x: x / magnitude, y: y / magnitude, z: z / magnitude)
+  }
+  
   func magnitudeSquared() -> Float {
     x * x + y * y + z * z
   }
@@ -20,9 +25,7 @@ public extension Point {
   func magnitude() -> Float {
     sqrt(magnitudeSquared())
   }
-}
 
-public extension Point {
   func distance(to another: Point) -> Float {
     sqrt(distanceSquared(to: another))
   }
@@ -30,6 +33,12 @@ public extension Point {
   func distanceSquared(to another: Point) -> Float {
     let delta = another - self
     return delta.magnitudeSquared()
+  }
+}
+
+public extension Point {
+  func interpolte(to target: Point, by amount: Float) -> Point {
+    self + (target - self).normalize() * amount
   }
 }
 
@@ -66,4 +75,13 @@ public extension Point {
           y: lhs.y - rhs.y,
           z: lhs.z - rhs.z)
   }
+  
+  static func * (lhs: Point, rhs: Float) -> Point {
+    Point(x: lhs.x * rhs, y: lhs.y * rhs, z: lhs.z * rhs)
+  }
+  
+  static func *= (lhs: inout Point, rhs: Float) {
+    lhs = lhs * rhs
+  }
 }
+

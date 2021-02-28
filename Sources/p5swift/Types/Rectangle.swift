@@ -118,3 +118,40 @@ public extension Rectangle {
     }
   }
 }
+
+public extension Rectangle {
+  enum Edge: CaseIterable {
+    case minX, minY, maxX, maxY
+  }
+  
+  func split(at: Float, edge: Edge) -> (slice: Rectangle, remainder: Rectangle) {
+    switch edge {
+    case .minX:
+      return (slice: Rectangle(x: x, y: y, width: at, height: height),
+              remainder: Rectangle(x: at, y: y, width: width - at, height: height))
+    case .minY:
+      return (slice: Rectangle(x: x, y: y, width: width, height: at),
+              remainder: Rectangle(x: x, y: at, width: width, height: height - at))
+    case .maxX:
+      return (slice: Rectangle(x: x + width - at, y: y, width: at, height: height),
+              remainder: Rectangle(x: x, y: y, width: width - at, height: height))
+    case .maxY:
+      return (slice: Rectangle(x: x, y: y + height - at, width: width, height: at),
+              remainder: Rectangle(x: x, y: y, width: width, height: height - at))
+    }
+  }
+  
+  func line(at edge: Edge) -> Line {
+    switch edge {
+    case .minX:
+      return Line(a: topLeft, b: topRight)
+    case .minY:
+      return Line(a: topLeft, b: bottomLeft)
+    case .maxX:
+      return Line(a: topRight, b: bottomRight)
+    case .maxY:
+      return Line(a: bottomLeft, b: bottomRight)
+    }
+  }
+}
+
