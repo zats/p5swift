@@ -19,3 +19,9 @@ public extension Size {
     CGSize(width: CGFloat(width), height: CGFloat(height))
   }
 }
+
+public extension Size {
+  static func * (lhs: Size, rhs: Float) -> Size {
+    Size(width: lhs.width * rhs, height: lhs.height * rhs)
+  }
+}

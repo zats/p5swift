@@ -1,6 +1,8 @@
 import CoreGraphics
 
-public struct Rectangle {
+public struct Rectangle: Equatable {
+  public static let zero = Rectangle(x: 0, y: 0, width: 0, height: 0)
+  
   public var x: Float
   public var y: Float
   public var width: Float
@@ -144,14 +146,26 @@ public extension Rectangle {
   func line(at edge: Edge) -> Line {
     switch edge {
     case .minX:
-      return Line(a: topLeft, b: topRight)
-    case .minY:
       return Line(a: topLeft, b: bottomLeft)
+    case .minY:
+      return Line(a: topLeft, b: topRight)
     case .maxX:
-      return Line(a: topRight, b: bottomRight)
+      return Line(a: bottomRight, b: topRight)
     case .maxY:
       return Line(a: bottomLeft, b: bottomRight)
     }
+  }
+  
+  func intersects(_ another: Rectangle) -> Bool {
+    return !((x >= another.maxX || maxX <= another.x)
+              || (y >= another.maxY || maxY <= another.y))
+  }
+  
+  func union(with other: Rectangle) -> Rectangle {
+    Rectangle(x: min(x, other.x),
+              y: min(y, other.y),
+              width: max(maxX, other.maxX) - min(x, other.x),
+              height: max(maxY, other.maxY) - min(y, other.y))
   }
 }
 

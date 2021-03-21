@@ -1,6 +1,6 @@
 import CoreGraphics
 
-public struct Point {
+public struct Point: Equatable {
   public var x: Float
   public var y: Float
   public var z: Float
@@ -14,7 +14,7 @@ public struct Point {
 
 public extension Point {
   func normalize() -> Point {
-    let magnitude = magnitude()
+    let magnitude = self.magnitude()
     return Point(x: x / magnitude, y: y / magnitude, z: z / magnitude)
   }
   
@@ -85,3 +85,26 @@ public extension Point {
   }
 }
 
+public extension Point {
+  enum Orientation {
+    case collinear
+    case clockwise
+    case counterClockwise
+  }
+
+  /**
+   Finds the orientation of point `c` relative to the line segment (a, b)
+   - Returns: `clockwise` if `c`is clockwise to segment (a, b), i.e right of line formed by the segment;  `counterClockwise` if `c` is counter clockwise to segment (`a`, `b`), i.e left of line formed by the segment
+   */
+  static func orientation(_ a: Point, _ b: Point, _ c: Point) -> Orientation {
+    precondition(a.z == 0 && b.z == 0 && c.z == 0, "3D orientation not implemented")
+    let value = (b.y - a.y) * (c.x - b.x) - (b.x - a.x) * (c.y - b.y)
+    if abs(value) < .ulpOfOne {
+      return .collinear
+    } else if value > 0 {
+      return .clockwise
+    } else {
+      return .counterClockwise
+    }
+  }
+}

@@ -123,10 +123,12 @@ public extension Color {
   static let white = Color(red: 1, green: 1, blue: 1)
   static let clear = Color(red: 0, green: 0, blue: 0, alpha: 0)
   
-  static let red = Color(red: 0.890, green: 0.227, blue: 0.231, alpha: 1.000)
-  static let orange = Color(red: 0.973, green: 0.396, blue: 0.024, alpha: 1.000)
-  static let yellow = Color(red: 0.976, green: 0.671, blue: 0.031, alpha: 1.000)
-  static let green = Color(red: 0.051, green: 0.671, blue: 0.510, alpha: 1.000)
+  static let cream = Color(red: 0.969, green: 0.922, blue: 0.843, alpha: 1)
+  static let red = Color(red: 0.784, green: 0.286, blue: 0.325, alpha: 1)
+  static let orange = Color(red: 0.943, green: 0.706, blue: 0.318, alpha: 1)
+  static let yellow = Color(red: 0.976, green: 0.671, blue: 0.031, alpha: 1)
+  static let blue = Color(red: 0.333, green: 0.498, blue: 0.686, alpha: 1)
+  static let green = Color(red: 0.611, green: 0.717, blue: 0.431, alpha: 1)
   static let purple = Color(red: 0.180, green: 0.153, blue: 0.635, alpha: 1.000)
   static let grey = Color(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.000)
 }

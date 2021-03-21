@@ -109,8 +109,7 @@ class CGGraphics: Graphics, InternalGraphics {
       case let .strokeCap(cap):
         configuration.strokeCap = cap
       case let .strokeJoin(join):
-        configuration.strokeJoin = join
-        
+        configuration.strokeJoin = join        
       case let .image(graphics):
         graphics.view.layer.draw(in: cgContext)
         

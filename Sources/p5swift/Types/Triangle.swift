@@ -27,6 +27,15 @@ public struct Triangle {
 }
 
 public extension Triangle {
+  static func equilateral(center: Point, radius: Float, angle: Float = 0) -> Triangle {
+    let a = Point(angle: angle, radius: radius, origin: center)
+    let b = Point(angle: angle + .twoPi / 3, radius: radius, origin: center)
+    let c = Point(angle: angle + .twoPi / 3 * 2, radius: radius, origin: center)
+    return Triangle(a: a, b: b, c: c)
+  }
+}
+
+public extension Triangle {
   var area: Float {
     0.5 * (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y))
   }
