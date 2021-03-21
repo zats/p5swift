@@ -153,3 +153,15 @@ open class Sketch: Graphics {
     graphics.image(another)
   }
 }
+
+public extension Sketch {
+  var safeFrame: Rectangle {
+    let insets = view.safeAreaInsets
+    var bounds = Rectangle(origin: .zero, size: size)
+    bounds.x += Float(insets.left)
+    bounds.width -= Float(insets.left + insets.right)
+    bounds.y += Float(insets.top)
+    bounds.height -= Float(insets.top + insets.bottom)
+    return bounds
+  }
+}
