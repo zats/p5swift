@@ -91,7 +91,7 @@ class TilesSketch: Sketch, SketchSample {
         let distance = a.distance(to: b)
         strokeWeight(distance / 10)
         stroke(with: Color(grey: 0.2))
-        line(Line(a: a, b: b))
+        line(LineSegment(a: a, b: b))
         points.append(Point(x: x2, y: y2, z: r2))
         i += 1
       }

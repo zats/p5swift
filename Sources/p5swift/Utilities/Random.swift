@@ -1,5 +1,6 @@
 import Foundation
 import GameKit
+import SwiftUI
 
 private var randomSource = GKARC4RandomSource()
 
@@ -46,4 +47,10 @@ public func noise(x: Float, y: Float = 0, z: Float = 0) -> Float {
 
 public func noiseSeed(_ seed: Int) {
   perlinNoiseSource.seed = Int32(seed)
+}
+
+public extension ClosedRange where Bound == Float {
+  func random() -> Float {
+    return p5swift.random(min: lowerBound, max: upperBound)
+  }
 }

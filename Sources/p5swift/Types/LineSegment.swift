@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct Line {
+public struct LineSegment {
   public var a: Point
   public var b: Point
   
@@ -12,13 +12,13 @@ public struct Line {
   }
 }
 
-public extension Line {
+public extension LineSegment {
   var length: Float {
     a.distance(to: b)
   }
 }
 
-public extension Line {
+public extension LineSegment {
   
   var isVertical: Bool {
     abs(a.x - b.x) < .ulpOfOne
@@ -30,7 +30,11 @@ public extension Line {
   
   enum Intersection {
     case point(Point)
-    case segment(Line)
+    case segment(LineSegment)
+  }
+  
+  var mid: Point {
+    return a.interpolated(to: b, t: 0.5)
   }
   
   /**
@@ -48,7 +52,7 @@ public extension Line {
   /**
    Determines whether two segments intersect
    */
-  func intersects(another: Line) -> Bool {
+  func intersects(another: LineSegment) -> Bool {
     let c = another.a, d = another.b
     // Get the orientation of points p3 and p4 in relation
     // to the line segment (p1, p2)
@@ -71,7 +75,7 @@ public extension Line {
     
   }
   
-  func getCommonEndpoints(with another: Line) -> [Point] {
+  func getCommonEndpoints(with another: LineSegment) -> [Point] {
     let c = another.a, d = another.b
     var points: [Point] = []
     if a == c {
@@ -98,7 +102,7 @@ public extension Line {
     return points;
   }
   
-  func intersection(with another: Line) -> Intersection? {
+  func intersection(with another: LineSegment) -> Intersection? {
     if !intersects(another: another) {
       return nil
     }
@@ -122,17 +126,17 @@ public extension Line {
     
     // Segments are equal.
     if n == 2 {
-      return .segment(Line(a: endpoints[0], b: endpoints[1]))
+      return .segment(LineSegment(a: endpoints[0], b: endpoints[1]))
     }
     
     let collinearSegments = Point.orientation(a, b, c) == .collinear && Point.orientation(a, b, d) == .collinear
     if collinearSegments {
       if includes(c) && includes(d) {
         // Segment #2 is enclosed in segment #1
-        return .segment(Line(a: c, b: d))
+        return .segment(LineSegment(a: c, b: d))
       } else if another.includes(a) && another.includes(b) {
         // Segment #1 is enclosed in segment #2
-        return .segment(Line(a: a, b: b))
+        return .segment(LineSegment(a: a, b: b))
       }
       // The subsegment is part of segment #1 and part of segment #2.
       // Find the middle points which correspond to this segment.
@@ -145,7 +149,7 @@ public extension Line {
         return .point(midPoint1)
       }
       
-      return .segment(Line(a: midPoint1, b: midPoint2))
+      return .segment(LineSegment(a: midPoint1, b: midPoint2))
     }
     
     // Beyond this point there is a unique intersection point.
@@ -167,5 +171,36 @@ public extension Line {
     let b2 = c.y - m2 * c.x;
     return .point(Point(x: (b2 - b1) / (m1 - m2),
                         y: (m1 * b2 - m2 * b1) / (m1 - m2)))
+  }
+}
+
+import CoreGraphics
+
+public extension LineSegment {
+  func perpendicular() -> LineSegment {
+    return rotating(by: .pi / 2, around: mid)
+  }
+
+  func scaling(by value: Float, around aroundOrCenter: Point? = nil) -> LineSegment {
+    let around = aroundOrCenter ?? mid
+    return applying(CGAffineTransform
+                      .identity
+                      .translatedBy(x: CGFloat(around.x), y: CGFloat(around.y))
+                      .scaledBy(x: CGFloat(value), y: CGFloat(value))
+                      .translatedBy(x: -CGFloat(around.x), y: -CGFloat(around.y)))
+  }
+
+  func rotating(by angle: Float, around aroundOrCenter: Point? = nil) -> LineSegment {
+    let around = aroundOrCenter ?? mid
+    return applying(CGAffineTransform
+                      .identity
+                      .translatedBy(x: CGFloat(around.x), y: CGFloat(around.y))
+                      .rotated(by: CGFloat(angle))
+                      .translatedBy(x: -CGFloat(around.x), y: -CGFloat(around.y)))
+  }
+  
+  func applying(_ transform: CGAffineTransform) -> LineSegment {
+    LineSegment(a: a.applying(transform),
+                b: b.applying(transform))
   }
 }

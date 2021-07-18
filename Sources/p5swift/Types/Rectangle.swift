@@ -76,12 +76,32 @@ public extension Rectangle {
     Point(x: x, y: maxY)
   }
   
+  var minX: Float {
+    x
+  }
+  
+  var minY: Float {
+    y
+  }
+  
   var maxY: Float {
     y + height
   }
   
   var maxX: Float {
     x + width
+  }
+  
+  var midX: Float {
+    x + width * 0.5
+  }
+  
+  var midY: Float {
+    y + height * 0.5
+  }
+  
+  var center: Point {
+    Point(x: midX, y: midY)
   }
 }
 
@@ -143,16 +163,16 @@ public extension Rectangle {
     }
   }
   
-  func line(at edge: Edge) -> Line {
+  func line(at edge: Edge) -> LineSegment {
     switch edge {
     case .minX:
-      return Line(a: topLeft, b: bottomLeft)
+      return LineSegment(a: topLeft, b: bottomLeft)
     case .minY:
-      return Line(a: topLeft, b: topRight)
+      return LineSegment(a: topLeft, b: topRight)
     case .maxX:
-      return Line(a: bottomRight, b: topRight)
+      return LineSegment(a: bottomRight, b: topRight)
     case .maxY:
-      return Line(a: bottomLeft, b: bottomRight)
+      return LineSegment(a: bottomLeft, b: bottomRight)
     }
   }
   

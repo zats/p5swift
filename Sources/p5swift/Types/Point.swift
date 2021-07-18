@@ -34,6 +34,11 @@ public extension Point {
     let delta = another - self
     return delta.magnitudeSquared()
   }
+  
+  func angle() -> Float {
+    return atan2(y, x)
+  }
+
 }
 
 public extension Point {
@@ -75,9 +80,21 @@ public extension Point {
           y: lhs.y - rhs.y,
           z: lhs.z - rhs.z)
   }
-  
+
+  static func * (rhs: Float, lhs: Point) -> Point {
+    Point(x: lhs.x * rhs, y: lhs.y * rhs, z: lhs.z * rhs)
+  }
+
   static func * (lhs: Point, rhs: Float) -> Point {
     Point(x: lhs.x * rhs, y: lhs.y * rhs, z: lhs.z * rhs)
+  }
+
+  static func / (rhs: Float, lhs: Point) -> Point {
+    Point(x: lhs.x / rhs, y: lhs.y / rhs, z: lhs.z / rhs)
+  }
+
+  static func / (lhs: Point, rhs: Float) -> Point {
+    Point(x: lhs.x / rhs, y: lhs.y / rhs, z: lhs.z / rhs)
   }
   
   static func *= (lhs: inout Point, rhs: Float) {
@@ -106,5 +123,36 @@ public extension Point {
     } else {
       return .counterClockwise
     }
+  }
+}
+
+public extension Point {
+  /// Interpolates between `self` and `other` points by value `t`
+  func interpolated(to other: Point, t: Float) -> Point {
+    return self + (other - self) * t
+  }
+
+  func interpolated(to other: Point, by distance: Float) -> Point {
+    return self.interpolated(to: other, t: distance / self.distance(to: other))
+  }
+}
+
+public extension Point {
+  static func random(in rect: Rectangle) -> Point {
+    return Point(x: Float.random(in: rect.minX...rect.maxX),
+                 y: Float.random(in: rect.minX...rect.maxX))
+  }
+}
+
+public func stride(from: Point, to: Point, byDistance: Float) -> [Point] {
+  let distance = from.distance(to: to)
+  return stride(from: 0, through: 1, by: byDistance / distance).map {
+    lerp(start: from, stop: to, amount: $0)
+  }
+}
+
+public extension Point {
+  func applying(_ transform: CGAffineTransform) -> Point {
+    return Point(cgPoint: cgPoint.applying(transform))
   }
 }

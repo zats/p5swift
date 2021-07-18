@@ -3,7 +3,7 @@
 import Foundation
 import CoreGraphics
 
-extension Line: PathRepresentable {
+extension LineSegment: PathRepresentable {
   var cgPath: CGPath {
     let path = CGMutablePath()
     path.addLines(between: [ a.cgPoint, b.cgPoint ])

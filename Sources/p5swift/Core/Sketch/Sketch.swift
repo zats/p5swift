@@ -8,7 +8,7 @@ open class Sketch: Graphics {
   public var size: Size {
     graphics.size
   }
-  
+    
   public var frameCount: Int {
     return graphics.frameCount
   }
@@ -65,10 +65,10 @@ open class Sketch: Graphics {
     graphics.endClip()
   }
   
-  public func line(_ line: Line) {
+  public func line(_ line: LineSegment) {
     graphics.line(line)
   }
-  
+    
   public func rectangle(_ rectangle: Rectangle) {
     graphics.rectangle(rectangle)
   }
@@ -97,6 +97,18 @@ open class Sketch: Graphics {
     graphics.curveVertex(point)
   }
   
+  public func curve(_ curve: CubicBezier) {
+    graphics.curve(curve)
+  }
+
+  public func curve(_ curve: QuadraticBezier) {
+    graphics.curve(curve)
+  }
+  
+  public func polygon(_ polygon: Polygon) {
+    graphics.polygon(polygon)
+  }
+
   public func endShape(_ mode: ShapeMode) {
     graphics.endShape(mode)
   }

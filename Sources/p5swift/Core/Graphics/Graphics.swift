@@ -5,11 +5,14 @@ public protocol Graphics {
   var frameCount: Int { get }
   var view: UIView { get }
 
-  func line(_ line: Line)
+  func line(_ line: LineSegment)
   func rectangle(_ rectangle: Rectangle)
   func ellipse(_ ellipse: Ellipse)
   func arc(_ arc: Arc)
   func point(_ point: Point)
+  func curve(_ curve: CubicBezier)
+  func curve(_ curve: QuadraticBezier)
+  func polygon(_ polygon: Polygon)
   
   func beginShape()
   func vertex(_ point: Point)
@@ -43,6 +46,12 @@ public extension Graphics {
   
   func noFill() {
     fill(with: .clear)
+  }
+}
+
+public extension Graphics {
+  var center: Point {
+    Point(x: size.width * 0.5, y: size.height * 0.5)
   }
 }
 

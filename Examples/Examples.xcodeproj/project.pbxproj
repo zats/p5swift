@@ -21,6 +21,8 @@
 		5C3495F425E1F63B004ED4CE /* SketchSampleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */; };
 		5C546F9F25E34F9F00880841 /* p5swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; };
 		5C546FA025E34F9F00880841 /* p5swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3495FF25E1F773004ED4CE /* p5swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C99D885269366E900370AD4 /* GreebleSketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C99D884269366E900370AD4 /* GreebleSketch.swift */; };
+		5CACAA4526A259F400121377 /* CurvesSketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACAA4426A259F400121377 /* CurvesSketch.swift */; };
 		5CD75D7B25E72869000E9B42 /* PleasingTriangleSketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C1FB22B25EDCD3200D0EDF9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		5C25471E25E3029100319C21 /* TilesSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesSketch.swift; sourceTree = "<group>"; };
 		5C3495C325E1EAD1004ED4CE /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C3495C625E1EAD1004ED4CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +88,10 @@
 		5C3495EF25E1F62C004ED4CE /* SketchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchListViewController.swift; sourceTree = "<group>"; };
 		5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchSampleProtocol.swift; sourceTree = "<group>"; };
 		5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = p5swift.xcodeproj; path = ../p5swift.xcodeproj; sourceTree = "<group>"; };
+		5C99D884269366E900370AD4 /* GreebleSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreebleSketch.swift; sourceTree = "<group>"; };
+		5CACAA4426A259F400121377 /* CurvesSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvesSketch.swift; sourceTree = "<group>"; };
 		5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleasingTriangleSketch.swift; sourceTree = "<group>"; };
+		5CE0ECCD25EB265900281C65 /* BuildingSketch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingSketch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		5C3495BA25E1EAD1004ED4CE = {
 			isa = PBXGroup;
 			children = (
+				5C1FB22B25EDCD3200D0EDF9 /* MyPlayground.playground */,
 				5C3495F725E1F772004ED4CE /* p5swift.xcodeproj */,
 				5C3495C525E1EAD1004ED4CE /* Examples */,
 				5C3495C425E1EAD1004ED4CE /* Products */,
@@ -143,6 +150,9 @@
 				5C3495F325E1F63B004ED4CE /* SketchSampleProtocol.swift */,
 				5C25471E25E3029100319C21 /* TilesSketch.swift */,
 				5CD75D7A25E72869000E9B42 /* PleasingTriangleSketch.swift */,
+				5CE0ECCD25EB265900281C65 /* BuildingSketch.swift */,
+				5C99D884269366E900370AD4 /* GreebleSketch.swift */,
+				5CACAA4426A259F400121377 /* CurvesSketch.swift */,
 			);
 			path = Sketches;
 			sourceTree = "<group>";
@@ -273,7 +283,9 @@
 				5C25471F25E3029100319C21 /* TilesSketch.swift in Sources */,
 				5C3495E925E1F5E9004ED4CE /* StrangeVibrationsSketch.swift in Sources */,
 				5C3495EC25E1F604004ED4CE /* ContactSketch.swift in Sources */,
+				5CACAA4526A259F400121377 /* CurvesSketch.swift in Sources */,
 				5C3495E625E1F5B4004ED4CE /* MySketch.swift in Sources */,
+				5C99D885269366E900370AD4 /* GreebleSketch.swift in Sources */,
 				5CD75D7B25E72869000E9B42 /* PleasingTriangleSketch.swift in Sources */,
 				5C3495F425E1F63B004ED4CE /* SketchSampleProtocol.swift in Sources */,
 				5C3495C725E1EAD1004ED4CE /* AppDelegate.swift in Sources */,
@@ -435,6 +447,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Examples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -453,6 +466,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Examples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

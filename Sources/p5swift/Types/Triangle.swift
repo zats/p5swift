@@ -13,16 +13,16 @@ public struct Triangle {
     self.c = c
   }
   
-  public var ab: Line {
-    Line(a: a, b: b)
+  public var ab: LineSegment {
+    LineSegment(a: a, b: b)
   }
   
-  public var bc: Line {
-    Line(a: b, b: c)
+  public var bc: LineSegment {
+    LineSegment(a: b, b: c)
   }
   
-  public var ca: Line {
-    Line(a: c, b: a)
+  public var ca: LineSegment {
+    LineSegment(a: c, b: a)
   }
 }
 

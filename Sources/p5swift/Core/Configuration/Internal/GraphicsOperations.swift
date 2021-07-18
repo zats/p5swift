@@ -1,7 +1,7 @@
 import Foundation
 
 enum GraphicsOperations {
-  case line(Line)
+  case line(LineSegment)
   case rectangle(Rectangle)
   case ellipse(Ellipse)
   case arc(Arc)
@@ -14,7 +14,10 @@ enum GraphicsOperations {
   case vertex(Point)
   case curveVertex(Point)
   case endShape(ShapeMode)
-  
+  case cubicBezier(CubicBezier)
+  case quadraticBezier(QuadraticBezier)
+  case polygon(Polygon)
+
   case blendMode(BlendMode)
   case background(Color)
   case fill(Color)

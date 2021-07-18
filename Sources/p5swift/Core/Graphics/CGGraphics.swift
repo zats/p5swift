@@ -93,7 +93,13 @@ class CGGraphics: Graphics, InternalGraphics {
         configuration.ongoingPath.endPath(mode)
         configuration.strokeOrFill(context: cgContext, path: configuration.ongoingPath.cgPath)
         configuration.ongoingPath = OngoingPath(curveTightness: configuration.curveTightness)
-
+      case let .cubicBezier(curve):
+        configuration.strokeOrFill(context: cgContext, path: curve.cgPath)
+      case let .quadraticBezier(curve):
+        configuration.strokeOrFill(context: cgContext, path: curve.cgPath)
+      case let .polygon(polygon):
+        configuration.strokeOrFill(context: cgContext, path: polygon.cgPath)
+        
       case let .blendMode(mode):
         cgContext.setBlendMode(mode.cgBlendMode)
       case let .fill(color):
@@ -143,7 +149,7 @@ class CGGraphics: Graphics, InternalGraphics {
     operations.append(.endClip)
   }
   
-  func line(_ line: Line) {
+  func line(_ line: LineSegment) {
     operations.append(.line(line))
   }
   
@@ -177,6 +183,18 @@ class CGGraphics: Graphics, InternalGraphics {
   
   func endShape(_ mode: ShapeMode = .open) {
     operations.append(.endShape(mode))
+  }
+  
+  func curve(_ curve: CubicBezier) {
+    operations.append(.cubicBezier(curve))
+  }
+  
+  func curve(_ curve: QuadraticBezier) {
+    operations.append(.quadraticBezier(curve))
+  }
+  
+  func polygon(_ polygon: Polygon) {
+    operations.append(.polygon(polygon))
   }
   
   func background(_ color: Color) {
